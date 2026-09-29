@@ -8,18 +8,23 @@ const mensajeVacio = document.getElementById("mensajeVacio");
 const contador = document.getElementById("contador");
 const buscar = document.getElementById("buscar");
 
+function actualizarContador() {
+    contador.textContent = "Contactos: " + contactos.length;
+}
+
 function mostrarContactos(lista) {
 
     listaContactos.innerHTML = "";
 
     if (lista.length === 0) {
         mensajeVacio.style.display = "block";
+        actualizarContador();
         return;
     }
 
     mensajeVacio.style.display = "none";
 
-    lista.forEach(function(contacto, indice) {
+    lista.forEach(function(contacto) {
 
         const div = document.createElement("div");
 
@@ -31,36 +36,30 @@ function mostrarContactos(lista) {
                 <span>${contacto.telefono}</span>
             </div>
 
-            <button class="btnEliminar" data-indice="${indice}">
+            <button class="btnEliminar">
                 Eliminar
             </button>
         `;
 
-        listaContactos.appendChild(div);
+        const botonEliminar = div.querySelector(".btnEliminar");
 
-    });
+        botonEliminar.addEventListener("click", function() {
 
-    const botonesEliminar =
-        document.querySelectorAll(".btnEliminar");
-
-    botonesEliminar.forEach(function(boton) {
-
-        boton.addEventListener("click", function() {
-
-            const indice = boton.getAttribute("data-indice");
+            const indice = contactos.indexOf(contacto);
 
             contactos.splice(indice, 1);
 
             mostrarContactos(contactos);
 
-            actualizarContador();
-
         });
 
+        listaContactos.appendChild(div);
+
     });
+
+    actualizarContador();
 }
 
-document.createElement()
 
 btnAgregar.addEventListener("click", function() {
 
@@ -83,10 +82,31 @@ btnAgregar.addEventListener("click", function() {
 
     mostrarContactos(contactos);
 
-    actualizarContador();
-
 });
 
-if (nombreIngresado === "" || telefonoIngresado === "") {
-    return;
+
+buscar.addEventListener("input", function() {
+
+    const texto = buscar.value.toLowerCase();
+
+    const contactosFiltrados = contactos.filter(function(contacto) {
+
+        return contacto.nombre.toLowerCase().includes(texto);
+
+    });
+
+    mostrarContactos(contactosFiltrados);
+
+});  
+
+
+function actualizarContador() {
+
+    contador.textContent = contactos.length;
+
 }
+
+mostrarContactos(contactos);
+actualizarContador();
+
+contactos.length
