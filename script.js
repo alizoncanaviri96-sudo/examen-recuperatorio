@@ -55,11 +55,8 @@ function mostrarContactos(lista) {
 
         listaContactos.appendChild(div);
 
-    });
-
-    actualizarContador();
-}
-
+    });  
+    actualizarContador(); }  
 
 btnAgregar.addEventListener("click", function() {
 
@@ -97,16 +94,5 @@ buscar.addEventListener("input", function() {
 
     mostrarContactos(contactosFiltrados);
 
-});  
+});
 
-
-function actualizarContador() {
-
-    contador.textContent = contactos.length;
-
-}
-
-mostrarContactos(contactos);
-actualizarContador();
-
-contactos.length
