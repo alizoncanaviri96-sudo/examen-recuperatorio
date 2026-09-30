@@ -86,13 +86,15 @@ buscar.addEventListener("input", function() {
 
     const texto = buscar.value.toLowerCase();
 
-    const contactosFiltrados = contactos.filter(function(contacto) {
+    const filtrados = contactos.filter(function(contacto) {
 
         return contacto.nombre.toLowerCase().includes(texto);
 
     });
 
-    mostrarContactos(contactosFiltrados);
+    mostrarContactos(filtrados);
 
 });
+
+ 
 
